@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="{{ url_for('static', filename='css/Index.css' )}}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+<form>
+  <p class="sub-header">Let's make you an account to get started!</p>
+
+  <section class="user-reg">
+    <label for="firstname">First name</label>
+    <input id="firstname" name="firstname" type="text" pattern="[a-zA-Z]+" required><br>
+
+    <label for="lastname">Last name</label>
+    <input id="lastname" name="lastname" type="text" pattern="[a-zA-Z]+" required><br>
+
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" maxlength="16" required><br>
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" minlength="8" required><br>
+
+    <label for="notif">Do you want email notifications?</label>
+    <input id="notif" name="notif" type="checkbox" value="notif">
+  </section>
+
+  <section class="user-fb">
+    <label for="feedback">How can we make this experience better for you?</label><br>
+    <textarea id="feedback" name="feedback" rows="4" cols="30"></textarea>
+    <div class="submit">
+      <input type="submit" value="Done">
+    </div>
+  </section>
+
+</form>
+{% endblock %}

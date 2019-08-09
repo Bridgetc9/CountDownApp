@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="{{ url_for('static', filename='css/Index.css' )}}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+<div class="intro">
+  <p id="sub-header">What Down To Zero Is</p>
+
+  <p><span>Down To Zero</span> is a countdown application where you can count down the days (or even hours) until a big event!</p>
+
+  <p>Some features that we have: </p>
+  <ul>
+    <li>Set events to be recurring
+    <li>Desktop Notification
+    <li>Sharing with friends
+  </ul>
+</div>
+{% endblock %}

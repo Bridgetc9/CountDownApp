@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="{{ url_for('static', filename='css/Events.css' )}}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+<div class="panel">
+  <span class="overview">
+    <div class="total-events"> Total events: <span id="event-count">0</span> </div>
+    <div class="next-event"> Next event in: <span id="min-days">0</span> days </div>
+  </span>
+  <div class="make-event">
+    <img src="/static/images/calendar-plus.png" alt="add event" onclick="makeEvent()">
+  </div>
+</div>
+
+
+<div class="event-edit-popup">
+  <form action="/events/edit/{{event.id}}" method="POST">
+    <h2> Make your event!</h2>
+
+    <label for="event-name">Event Name</label><br>
+    <input type="text" name="event-name" value="{{event.name}}" required><br>
+
+    <label for="event-date">Event Date</label><br>
+    <input type="date" name="event-date" value="{{event.date}}" required><br>
+
+    <label for="event-describe">What is it?</label><br>
+    <textarea type="text" name="event-describe">{{event.content}}</textarea>
+
+    <div class="button-parent">
+      <input id="edit-button" type="submit" value="UPDATE">
+    </div>
+  </form>
+</div>
+
+
+<div class="events">
+  <table>
+    <tr class="table-header">
+      <th>Event</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    {% for event in events %}
+      <tr>
+        <td> {{ event.name }} </td>
+        <td> {{ event.date }} </td>
+        <td> {{ event.content }} </td>
+        <td>
+          <a>Delete</a>
+          <a>Edit</a> <!-- onclick= show form!-->
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+
+<script src="{{ url_for('static', filename='js/app.js' )}}" charset="utf-8"></script>
+{% endblock %}

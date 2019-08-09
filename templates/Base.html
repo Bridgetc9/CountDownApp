@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Down20</title>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <h1 class="title">Down 2 0</h1>
+      <nav class="header">
+        <ul>
+          <li><a href="{{ url_for('index')}}">Main</a></li><li><a href="{{ url_for('events')}}">My Days</a></li><li><a href="{{ url_for('sign_up')}}">Sign Up</a></li>
+        </ul>
+      </nav>
+    </header>
+    {% block body %}{% endblock %}
+  </body>
+<html>
