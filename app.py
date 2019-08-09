@@ -17,7 +17,11 @@ class Event(db.Model):
 
     def active_date(self):
         if self.recur and self.date < date.today():
+            # targ_event = Event.query.get_or_404(self.id)
+            # targ_event.date = event_name, event_date
             self.date = date(self.date.year + 1, self.date.month, self.date.day)
+            db.session.commit()
+
         return self.date
 
 
@@ -83,6 +87,8 @@ def edit(id):
         targ_event.name, targ_event.date = event_name, event_date
         targ_event.content= event_content
         targ_event.recur = event_recur
+        # if event_date < date.today():
+        #     return "Your date should be in the future!"
         try:
             db.session.commit()
             return redirect("/events")
