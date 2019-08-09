@@ -32,6 +32,9 @@
     <label for="event-describe">What is it?</label><br>
     <textarea type="text" name="event-describe"></textarea>
 
+    <label for="event-recur">Repeat Annually?</label>
+    <input type="checkbox" name="event-recur" value="recur"></input>
+
     <div class="button-parent">
       <input id="done-button" type="submit" value="DONE" onclick="submitEventForm()">
     </div>
@@ -50,7 +53,7 @@
     {% for event in events %}
       <tr>
         <td> {{ event.name }} </td>
-        <td> {{ event.date }} </td>
+        <td> {{ event.active_date() }} </td>
         <td> {{ event.content }} </td>
         <td>
           <a href="/events/delete/{{event.id}}">Delete</a>

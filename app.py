@@ -10,8 +10,16 @@ db = SQLAlchemy(app)
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
-    date = db.Column(db.Date, nullable=False) #is date instead of datetime ok?
+    date = db.Column(db.Date, nullable=False)
     content = db.Column(db.String(200))
+    recur = db.Column(db.String(10))
+
+
+    def active_date(self):
+        if self.recur and self.date < date.today():
+            self.date = date(self.date.year + 1, self.date.month, self.date.day)
+        return self.date
+
 
     def days_left(self):
         return (self.date - date.today()).days
@@ -31,7 +39,10 @@ def events():
         date_list = [int(d) for d in request.form['event-date'].split('-')]
         event_date = date(date_list[0], date_list[1], date_list[2])
         event_content = request.form['event-describe']
-        new_event = Event(name=event_name, date=event_date, content=event_content)
+        event_recur = request.form['event-recur'] if 'event-recur' in request.form else None
+        new_event = Event(name=event_name, date=event_date, content=event_content, recur=event_recur) #
+        if event_date < date.today():
+            return "Your date should be in the future!"
         try:
             db.session.add(new_event)
             db.session.commit()
@@ -61,21 +72,24 @@ def delete(id):
 
 @app.route('/events/edit/<int:id>', methods=['GET', 'POST'])
 def edit(id):
-    event_to_edit = Event.query.get_or_404(id)
+    targ_event = Event.query.get_or_404(id)
     events = Event.query.order_by(Event.date).all()
     if request.method == 'POST':
         event_name = request.form['event-name']
         date_list = [int(d) for d in request.form['event-date'].split('-')]
         event_date = date(date_list[0], date_list[1], date_list[2])
         event_content = request.form['event-describe']
-        event_to_edit.name, event_to_edit.date, event_to_edit.content = event_name, event_date, event_content
+        event_recur = request.form['event-recur'] if 'event-recur' in request.form else None
+        targ_event.name, targ_event.date = event_name, event_date
+        targ_event.content= event_content
+        targ_event.recur = event_recur
         try:
             db.session.commit()
             return redirect("/events")
         except:
             return "There was an issue editing your event."
     else:
-        return render_template('Edit.html', event=event_to_edit, events=events)
+        return render_template('Edit.html', event=targ_event, events=events)
 
 
 if __name__ == '__main__':
