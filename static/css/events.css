@@ -263,7 +263,7 @@ input:focus, textarea:focus {
   border-collapse: collapse;
   border: 2.5px solid #C6A5FF;
   width: 90%;
-  margin: 0px auto;
+  margin: 0px auto 60px;
   position: relative;
   top: 150px;
 }

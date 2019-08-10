@@ -9,7 +9,7 @@
 <div class="panel">
   <span class="overview">
     <div class="total-events"> Total events: <span id="event-count">0</span> </div>
-    <div class="next-event"> Next event in: <span id="min-days">0</span> days </div>
+    <div class="next-event"> Next event in: <span id="min-days">?</span> days </div>
   </span>
   <div class="make-event">
     <img src="/static/images/calendar-plus.png" alt="add event" onclick="makeEvent()">
@@ -36,7 +36,7 @@
     <input type="checkbox" name="event-recur" value="recur"></input>
 
     <div class="button-parent">
-      <input id="done-button" type="submit" value="DONE" onclick="submitEventForm()">
+      <input id="done-button" type="submit" value="DONE">
     </div>
   </form>
 </div>
@@ -56,7 +56,7 @@
         <td> {{ event.active_date() }} </td>
         <td> {{ event.content }} </td>
         <td>
-          <a href="/events/delete/{{event.id}}">Delete</a>
+          <a href="/events/delete/{{event.id}}" onclick="deleteEvent()">Delete</a>
           <a href="/events/edit/{{event.id}}" >Edit</a> <!-- onclick= show form!-->
         </td>
       </tr>
